@@ -3,8 +3,8 @@ requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mySNR"
-version = "0.0.1"
+name = "mysnr"
+version = "0.1.1"
 authors = [
   { name="Kilian David", email="kilian.david@tum.de" },
 ]
@@ -17,6 +17,10 @@ classifiers = [
 ]
 license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]
+dependencies = [
+    "scipy",
+    "numpy"
+]
 
 [project.urls]
 Homepage = "https://github.com/kl-david/mysnr"
