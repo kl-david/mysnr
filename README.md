@@ -87,3 +87,7 @@ plt.show()
 ## Contributing
 
 Contributions are welcome! If you have any suggestions or bug reports, please open an issue on the [GitHub repository](https://github.com/kl-david/mysnr).
+
+## Acknowledgements:
+
+This project is inspired by https://github.com/hrtlacek/SNR/blob/main/SNR.ipynb .
