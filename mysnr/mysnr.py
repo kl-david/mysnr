@@ -118,7 +118,7 @@ def findFundamental(psd, faxis, bw=None):
             raise ValueError("Bandwidth is falling to the 0th bin.\nCan not find a fundamental peak!\nTry incraesing the Bandwith or use more periods.")
     return faxis[fbin], fbin
 
-def snr(psd, faxis, T_samp, N, bw=None) -> float:
+def snr(psd, faxis, T_samp, N, bw=None, return_bins = False) -> float:
     '''
     Returns the snr of a psd.
 
@@ -130,6 +130,8 @@ def snr(psd, faxis, T_samp, N, bw=None) -> float:
     Bins identified as part of a harmonic are replaced by the mean of the (non-harmonic) noise.
 
     Returns signal power divided by noise power
+    
+    If return_bins is set to True, it also returns the signal bins.
     '''
     if bw == None:
         bw = faxis[-1]
@@ -154,9 +156,11 @@ def snr(psd, faxis, T_samp, N, bw=None) -> float:
     psd_noise[harm_bins] = noise_mean
     noise_power = bandpower(psd_noise[:bw_bin], tau=tau)
 
+    if return_bins:
+        return signal_power/noise_power, signal_bins
     return signal_power/noise_power
 
-def sndr(psd, faxis, T_samp, N, bw=None):
+def sndr(psd, faxis, T_samp, N, bw=None, return_bins = False):
     '''
     Returns the sndr of a psd.
 
@@ -166,6 +170,8 @@ def sndr(psd, faxis, T_samp, N, bw=None):
     Signal and harmonic peaks are identified via a monotonicity-criterion.
 
     Returns signal power divided by the sum of noise power and harmonic power.
+
+    If return_bins is set to True, it also returns the signal bins as well as the harmonic bins.
     '''
     if bw == None:
         bw = faxis[-1]
@@ -193,4 +199,6 @@ def sndr(psd, faxis, T_samp, N, bw=None):
     psd_noise[harm_bins] = noise_mean
     noise_power = bandpower(psd_noise[:bw_bin], tau=tau)
 
+    if return_bins:
+        return signal_power/(noise_power + harm_power), signal_bins, harm_bins
     return signal_power/(noise_power + harm_power)
