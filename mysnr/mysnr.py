@@ -46,13 +46,11 @@ def freqToBin(fAxis, f):
     '''
     return np.argmin(abs(fAxis-f))
 
-def getPeakInArea(psd, faxis, estimation, searchWidthHz = 10):
+def getPeakInArea(psd, faxis, estimation):
     """
     returns bin and frequency of the maximum in an area
     """
-    binLow = freqToBin(faxis, estimation-searchWidthHz)
-    binHi = freqToBin(faxis, estimation+searchWidthHz)
-    peakbin = binLow+np.argmax(psd[binLow:binHi])
+    peakbin = freqToBin(faxis, estimation)
     return peakbin, faxis[peakbin]
 
 def getHarmonics(fund,bw,nHarmonics=6,aliased=False):
@@ -89,7 +87,7 @@ def findBinnedHarmonics(psd, faxis, fund, bw, nHarmonics=6, aliased=False):
         searchWidth = 0.1*fund
         estimation = harmonic
 
-        harmBin, harmFreq = getPeakInArea(psd, faxis, estimation, searchWidth)
+        harmBin, harmFreq = getPeakInArea(psd, faxis, estimation)
         harmPeakFreqs.append(harmFreq)
         harmPeakBins.append(harmBin)
 
