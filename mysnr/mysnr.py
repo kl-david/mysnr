@@ -23,6 +23,8 @@ def getIndizesAroundPeak(psd, peakIndex,searchWidth=1000):
     curVal = magMax
     for i in range(searchWidth):
         newBin = peakIndex+i
+        if newBin > len(psd):
+            break
         newVal = psd[newBin]
         if newVal>curVal:
             break
@@ -32,6 +34,8 @@ def getIndizesAroundPeak(psd, peakIndex,searchWidth=1000):
     curVal = magMax
     for i in range(searchWidth):
         newBin = peakIndex-i
+        if newBin < 0:
+            break
         newVal = psd[newBin]
         if newVal>curVal:
             break
