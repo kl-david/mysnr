@@ -112,7 +112,10 @@ def findFundamental(psd, faxis, bw=None):
         fbin = np.argmax(psd)
     else:
         bwbin = freqToBin(faxis, bw)
-        fbin = np.argmax(psd[:bwbin])
+        try:
+            fbin = np.argmax(psd[:bwbin])
+        except ValueError:
+            raise ValueError("Bandwidth is falling to the 0th bin.\nCan not find a fundamental peak!\nTry incraesing the Bandwith or use more periods.")
     return faxis[fbin], fbin
 
 def snr(psd, faxis, T_samp, N, bw=None) -> float:
